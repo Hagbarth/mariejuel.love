@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Maries fødselsdag!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
     <style>
       body {
@@ -14,49 +14,136 @@
       h1.ui.center.header {
         margin-top: 3em;
       }
+      .hidden {
+        display: none;
+      }
+      .white {
+        color: #FFFFFF !important;
+      }
+      small {
+        font-size: .7rem;
+      }
+      .only-print {
+        display: none;
+      }
+      @media print {
+        .hidden-print {
+          display: none !important;
+        }
+        .only-print {
+          display: block;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1 class="ui center aligned header">Countdown til Maries fødselsdag</h1>
-    <div class="ui three column container grid">
-      <div class="ui column"></div>
-      <div class="ui column">
-        <div class="ui four statistics">
-          <div class="statistic">
-            <div class="value" id="days">0</div>
-            <div class="label">Dage</div>
+    <div class="ui container hidden-print">
+      <div id="countdown">
+        <h1 class="ui center aligned header">Countdown til Maries fødselsdag</h1>
+        <div class="ui three column grid">
+          <div class="ui column"></div>
+          <div class="ui column">
+            <div class="ui four statistics" id="counter">
+              <div class="statistic">
+                <div class="value" id="days">0</div>
+                <div class="label">Dage</div>
+              </div>
+              <div class="statistic">
+                <div class="value" id="hours">0</div>
+                <div class="label">Timer</div>
+              </div>
+              <div class="statistic">
+                <div class="value" id="minutes">0</div>
+                <div class="label">Minutter</div>
+              </div>
+              <div class="statistic">
+                <div class="value" id="seconds">0</div>
+                <div class="label">Sekunder</div>
+              </div>
+            </div>
           </div>
-          <div class="statistic">
-            <div class="value" id="hours">0</div>
-            <div class="label">Timer</div>
-          </div>
-          <div class="statistic">
-            <div class="value" id="minutes">0</div>
-            <div class="label">Minutter</div>
-          </div>
-          <div class="statistic">
-            <div class="value" id="seconds">0</div>
-            <div class="label">Sekunder</div>
+          <div class="ui column"></div>
+        </div>
+      </div>
+      <h1 class="ui center aligned header" id="come-back">Kom tilbage når countdownen er færdig...</h1>
+      <div id="riddle" class="hidden">
+        <h1 class="ui center aligned header white">Hvad er Emils yndlingsdrink?</h1>
+        <div class="ui grid">
+          <div class="ui five wide column"></div>
+          <div class="ui six wide column">
+            <br />
+            <br />
+            <br />
+            <div class="ui fluid buttons">
+              <button class="ui yellow button" id="right-answer">Old fashioned</button>
+              <button class="ui yellow button">Saftevand</button>
+              <button class="ui yellow button">Gimlet</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="ui column"></div>
+      <div id="present" class="hidden">
+        <h1 class="ui center aligned header white">Tillykke med fødselsdagen!</h1>
+        <p class="ui center aligned header">🇩🇰🇩🇰🇩🇰🇩🇰🇩🇰</p>
+        <p class="ui center aligned header">🇩🇰🇩🇰🇩🇰🇩🇰🇩🇰</p>
+        <p class="ui center aligned header">🇩🇰🇩🇰🇩🇰🇩🇰🇩🇰</p>
+        <p class="ui center aligned header">🇩🇰🇩🇰🇩🇰🇩🇰🇩🇰</p>
+        <p class="ui center aligned header">🇩🇰🇩🇰🇩🇰🇩🇰🇩🇰</p>
+        <p class="ui center aligned header white">(25 flag)</p>
+        <h1 class="ui center aligned header white">Din gave er:</h1>
+        <p class="ui center aligned header white">
+            Et officielt gavekort på en forlænget weekend til en storby i Europa (eller tilsvarende, hvis Norwegian har tilbud 😅).
+            <br/>
+            Til indløsning når du har ferie eller tid næste gang 😘
+            <br/>
+            <small>Print siden for at få det officielle gavekort</small>
+        <p>
+      </div>
     </div>
-    <h1 class="ui center aligned header">Kom tilbage når countdownen er færdig...</h1>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <div class="only-print">
+      <h1 class="ui center aligned header">Gavekort</h1>
+      <h2>Officielt gavekort fra Hagbarth Giftcards INC.</h2>
+      <p><strong>Gavekortet gælder:</strong></p>
+      <p>1 forlænget weekend til en storby i Europa (eller tilsvarende).</p>
+      <p><strong>Værdi:</strong> 1 fdg<sup>*</sup></p>
+      <p><strong>Til indløsning:</strong></p>
+      <p>En dato på modtagers bestilling.</p>
+      <p><strong>Udløbsdato</strong> 17/01/3017</p>
+      <div class="ui action input">
+        <button class="ui button">Gavekort brugt</button>
+        <input type="text" placeholder="">
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <p><small>*Fødselsdagsgave</small></p>
+    </div>
     <script>
+    var remaining = 0
+    var riddleSolved = false
+    var deadlineHit = false
     var deadline = '2017-01-17'
+    var $present = document.getElementById('present')
+    var $countdown = document.getElementById('countdown')
+    var $comeback = document.getElementById('come-back')
+    var $rightanswer = document.getElementById('right-answer')
+    var $riddle = document.getElementById('riddle')
+    var $counter = document.getElementById('counter')
     var $days = document.getElementById('days')
     var $hours = document.getElementById('hours')
     var $minutes = document.getElementById('minutes')
     var $seconds = document.getElementById('seconds')
     function getTimeRemaining(endtime){
       var t = Date.parse(endtime) - Date.parse(new Date());
-      var seconds = Math.floor( (t / 1000) % 60 );
-      var minutes = Math.floor( (t / 1000 / 60) % 60 );
-      var hours = Math.floor( (t /(1000 * 60 * 60)) % 24 );
-      var days = Math.floor( t / (1000 * 60 * 60 * 24) );
+      var seconds = Math.floor((t / 1000) % 60);
+      var minutes = Math.floor((t / 1000 / 60) % 60);
+      var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+      var days = Math.floor(t / (1000 * 60 * 60 * 24));
       return {
         'total': t,
         'days': days,
@@ -65,13 +152,38 @@
         'seconds': seconds
       };
     }
-    setInterval(function(){
-      var remaining = getTimeRemaining(deadline)
+    function updateClock() {
+      remaining = getTimeRemaining(deadline)
+      if (remaining.total <= 0) {
+        deadlineHit = true
+      }
+    }
+    function render() {
       $days.innerHTML = remaining.days
       $hours.innerHTML = remaining.hours
       $minutes.innerHTML = remaining.minutes
       $seconds.innerHTML = remaining.seconds
-    }, 1000)
+      if (deadlineHit && !riddleSolved) {
+        $riddle.className = $riddle.className.replace('hidden', '')
+        $comeback.className = 'hidden'
+        $countdown.className = 'hidden'
+      } else {
+        $riddle.className = 'hidden'
+      }
+      if (riddleSolved) {
+        $present.className = $present.className.replace('hidden', '')
+      }
+    }
+    function tick() {
+      updateClock()
+      render()
+    }
+    setInterval(tick, 1000)
+    tick()
+    $rightanswer.addEventListener('click', function () {
+      riddleSolved = true
+      render()
+    })
     </script>
   </body>
 </html>
